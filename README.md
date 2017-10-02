@@ -28,3 +28,5 @@ For example:
 > "4 Operations SUCCESSFUL. 1 Operations INVALID_OPERAND_ID. 1 Operations NETWROK_ERROR.”
 
 
+
+![image](https://user-images.githubusercontent.com/11629459/31070391-d043afb6-a768-11e7-8a9f-534bea0b22cb.png)
