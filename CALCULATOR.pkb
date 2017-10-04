@@ -250,7 +250,7 @@ CREATE OR REPLACE PACKAGE BODY EDUMAN.CALCULATOR IS
 		NO_OPERATION_FOUND EXCEPTION;
 		INVALID_OPERAND_ID EXCEPTION;
 		EXCEEDS_RETRIES    EXCEPTION;
-		NETWROK_ERROR      EXCEPTION;
+		NETWORK_ERROR      EXCEPTION;
 	BEGIN
 		vd_exec_start_date := SYSDATE;
 		vt_Operations      := t_TypeList();
@@ -329,7 +329,7 @@ CREATE OR REPLACE PACKAGE BODY EDUMAN.CALCULATOR IS
 					 OR length(vs_Remark) > 50
 					 OR vs_XmlResponse IS NULL
 				THEN
-					RAISE NETWROK_ERROR;
+					RAISE NETWORK_ERROR;
 				END IF;
 			
 				--handle  all possible errors
@@ -345,7 +345,7 @@ CREATE OR REPLACE PACKAGE BODY EDUMAN.CALCULATOR IS
 					vs_status               := 'F';
 					vs_remark               := 'Execution FAILED! INVALID_OPERAND_ID';
 				
-				WHEN NETWROK_ERROR THEN
+				WHEN NETWORK_ERROR THEN
 					vn_NetworkErrorCount := vn_NetworkErrorCount + 1;
 					vs_status            := 'F';
 					vs_exec_status       := 'F';
@@ -403,11 +403,11 @@ CREATE OR REPLACE PACKAGE BODY EDUMAN.CALCULATOR IS
 				IF vn_ExecOperationsCount <= 0
 				THEN
 					vs_exec_remark := vn_NetworkErrorCount ||
-														' Operations NETWROK_ERROR. ' || '' ||
+														' Operations NETWORK_ERROR. ' || '' ||
 														vs_exec_remark;
 				ELSE
 					vs_exec_remark := vs_exec_remark || '' || vn_NetworkErrorCount ||
-														' Operations NETWROK_ERROR. ';
+														' Operations NETWORK_ERROR. ';
 				END IF;
 			END IF;
 		END IF;
@@ -429,6 +429,8 @@ CREATE OR REPLACE PACKAGE BODY EDUMAN.CALCULATOR IS
 			 vs_exec_remark);
 	
 		COMMIT;
+	
+		dbms_output.put_line('INFO> Package Executed...');
 	END CALCULATIONS_APPLY;
 
 END CALCULATOR;
