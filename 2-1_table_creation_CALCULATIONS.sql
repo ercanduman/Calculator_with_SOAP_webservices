@@ -34,4 +34,5 @@ create index EDUMAN.i_CALCULATIONS_id on CALCULATIONS(calculation_id);
 --instead of writing Operand_id values one by one, a sequence created
 CREATE sequence EDUMAN.seq_calculations_id start with 1 increment by 1 cache 10 order nocycle;
 
-
+-- CONSTRAINT
+ALTER TABLE EDUMAN.CALCULATIONS ADD CONSTRAINT CK_CALCULATIONS_STATUS CHECK ( STATUS IN ('N', 'F', 'S') );
