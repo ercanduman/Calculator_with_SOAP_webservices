@@ -23,6 +23,13 @@ BEGIN
   EDUMAN.CALCULATOR.CALCULATIONS_APPLY;
 END;
 ```
+After calling package, the operation results for _result, remark, xml_request, xml_response_ and _process_time_ will be written in `eduman.calculations` table.
+ 
+![image](https://user-images.githubusercontent.com/11629459/31163489-4578c874-a8eb-11e7-9ff6-62650a6f7a78.png)
+
+
+### WA execution logs
+
 This package also categorizes the execution results in` eduman.calculations_wa_log` table. For different operations, different results/outputs will be written in the table. 
 For example:
 > "4 Operations SUCCESSFUL. 1 Operations INVALID_OPERAND_ID. 1 Operations NETWROK_ERROR.”
