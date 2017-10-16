@@ -3,13 +3,14 @@ create table EDUMAN.CALCULATIONS (
    Number_A        NUMBER,
    Number_B        NUMBER,
    Operand_id      NUMBER,
-   Result          VARCHAR2 (50),
-   Remark          VARCHAR2 (1000),
-   Status          VARCHAR2 (1) DEFAULT 'N',
+   Result          VARCHAR (50),
+   Remark          VARCHAR (1000),
+   Status          VARCHAR (1) DEFAULT 'N',
    Retry_count     NUMBER,
-   Xml_Request     VARCHAR2 (30000),
-   Xml_Response    VARCHAR2 (30000),
-   process_time    DATE
+   Xml_Request     VARCHAR (4000),
+   Xml_Response    VARCHAR (4000),
+   process_time    DATE,
+   http_host    VARCHAR2 (2000)
 );
 
 --table comment
@@ -27,12 +28,11 @@ comment on column EDUMAN.CALCULATIONS.Retry_count is 'Retry_count attribute defi
 comment on column EDUMAN.CALCULATIONS.Xml_Request is 'Xml_Request attribute defines the XML with given parameters for webservice request.';
 comment on column EDUMAN.CALCULATIONS.Xml_Response is 'Xml_Response attribute defines the XML with the values from webservice response.';
 comment on column EDUMAN.CALCULATIONS.process_time is 'process_time attribute defines time that the calculations done.';
-
---index
-create index EDUMAN.i_CALCULATIONS_id on CALCULATIONS(calculation_id);
+comment on column EDUMAN.CALCULATIONS.http_host is 'http_host attribute defines webservice host address.';
 
 --instead of writing Operand_id values one by one, a sequence created
 CREATE sequence EDUMAN.seq_calculations_id start with 1 increment by 1 cache 10 order nocycle;
 
 -- CONSTRAINT
 ALTER TABLE EDUMAN.CALCULATIONS ADD CONSTRAINT CK_CALCULATIONS_STATUS CHECK ( STATUS IN ('N', 'F', 'S') );
+ALTER TABLE EDUMAN.CALCULATIONS ADD CONSTRAINT FK_CALCULATIONS__OPID FOREIGN KEY (Operand_id) REFERENCES EDUMAN.CALCULATIONS_OPERAND_CONFIG (Operand_id) ENABLE NOVALIDATE;
